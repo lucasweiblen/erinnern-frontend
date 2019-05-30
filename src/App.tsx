@@ -2,47 +2,71 @@
 import React from 'react';
 import {css, jsx} from '@emotion/core';
 
-const color = 'white';
+const bgColorNavbar = '#115677';
+const bgColorBtn = '#9ADBF9';
+const btnStyle = css`
+  background-color: ${bgColorBtn};
+  border-radius: 12px;
+  color: #115677;
+`;
 
-const Header: React.FC = () => {
+const Navbar: React.FC = () => {
   return (
-    <section className="section">
-      <div>Header</div>
-    </section>
+    <nav
+      className="navbar"
+      css={css`
+        background-color: ${bgColorNavbar};
+        min-heigth: unset;
+        min-height: 5rem;
+      `}>
+      <div className="navbar-brand">
+        <div
+          css={css`
+            color: #4dc5fd;
+            font-size: 20px;
+          `}
+          className="navbar-item">
+          Bookmark app
+        </div>
+      </div>
+      <div className="navbar-menu">
+        <div className="navbar-end">
+          <div className="navbar-item">
+            <div className="buttons">
+              <a css={btnStyle} className="button">
+                Sign in
+              </a>
+              <a css={btnStyle} className="button">
+                Sign up
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
   );
 };
 
 const Main: React.FC = () => {
-  return (
-    <section className="section">
-      <div>Main</div>
-    </section>
-  );
-};
+  const bgImg =
+    'https://res.cloudinary.com/drtt3lmfe/image/upload/v1559231199/abstract-oil-painting-art-artistic-1546251_v8hnv5.jpg';
 
-const Teste: React.FC = () => {
+  const mainCss = css`background-image: url("${bgImg}");`;
+
   return (
-    <div
-      css={css`
-        padding: 32px;
-        background-color: hotpink;
-        font-size: 24px;
-        border-radius: 4px;
-        &:hover {
-          color: ${color};
-        }
-      `}>
-      Hover to change color.
-    </div>
+    <section css={mainCss} className="hero is-fullheight-with-navbar">
+      <div className="hero-body">
+        <div className="container" />
+      </div>
+    </section>
   );
 };
 
 const App: React.FC = () => {
   return (
     <div className="App">
-      <Header />
+      <Navbar />
       <Main />
-      <Teste />
     </div>
   );
 };
