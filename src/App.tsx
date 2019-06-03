@@ -12,6 +12,16 @@ const btnStyle = css`
 `;
 
 const SignIn: React.FC = () => {
+  const btnStyle = css`
+    background-color: #9adbf9;
+    color: #195e7f;
+    width: 365px;
+    border: 1px solid #9adbf9;
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-left: 15px;
+  `;
+
   return (
     <div className="container">
       <div
@@ -20,6 +30,7 @@ const SignIn: React.FC = () => {
           width: 434px;
           height: 628px;
           margin: 50px auto;
+          border-radius: 10px;
         `}
         className="box">
         <div className="field">
@@ -38,7 +49,9 @@ const SignIn: React.FC = () => {
             />
           </div>
           <div className="control">
-            <button className="button">Submit</button>
+            <button css={btnStyle} className="button">
+              Sign in
+            </button>
           </div>
         </div>
       </div>
