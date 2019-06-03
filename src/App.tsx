@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import React from 'react';
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import {css, jsx} from '@emotion/core';
 
 const bgColorNavbar = '#115677';
@@ -9,6 +10,14 @@ const btnStyle = css`
   border-radius: 12px;
   color: #115677;
 `;
+
+const SignIn: React.FC = () => {
+  return (
+    <div className="container">
+      <div className="notification">foo</div>
+    </div>
+  );
+};
 
 const Navbar: React.FC = () => {
   return (
@@ -33,12 +42,12 @@ const Navbar: React.FC = () => {
         <div className="navbar-end">
           <div className="navbar-item">
             <div className="buttons">
-              <a css={btnStyle} className="button">
+              <Link css={btnStyle} className="button" to="/signin">
                 Sign in
-              </a>
-              <a css={btnStyle} className="button">
+              </Link>
+              <Link css={btnStyle} className="button" to="/signup">
                 Sign up
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -47,7 +56,7 @@ const Navbar: React.FC = () => {
   );
 };
 
-const Main: React.FC = () => {
+const Home: React.FC = () => {
   const bgImg =
     'https://res.cloudinary.com/drtt3lmfe/image/upload/v1559231199/abstract-oil-painting-art-artistic-1546251_v8hnv5.jpg';
 
@@ -64,10 +73,13 @@ const Main: React.FC = () => {
 
 const App: React.FC = () => {
   return (
-    <div className="App">
-      <Navbar />
-      <Main />
-    </div>
+    <Router>
+      <div>
+        <Navbar />
+        <Route exact path="/" component={Home} />
+        <Route path="/signin" component={SignIn} />
+      </div>
+    </Router>
   );
 };
 
