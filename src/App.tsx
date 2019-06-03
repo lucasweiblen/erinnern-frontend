@@ -19,10 +19,28 @@ const SignIn: React.FC = () => {
           background-color: #2999cd;
           width: 434px;
           height: 628px;
-          margin: 0 auto;
+          margin: 50px auto;
         `}
         className="box">
-        Sign In
+        <div className="field">
+          <div className="control">
+            <input
+              className="input is-primary"
+              type="text"
+              placeholder="EMAIL"
+            />
+          </div>
+          <div className="control">
+            <input
+              className="input is-primary"
+              type="password"
+              placeholder="PASSWORD"
+            />
+          </div>
+          <div className="control">
+            <button className="button">Submit</button>
+          </div>
+        </div>
       </div>
     </div>
   );
