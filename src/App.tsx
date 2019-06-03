@@ -22,6 +22,13 @@ const SignIn: React.FC = () => {
     margin-left: 15px;
   `;
 
+  const inputStyle = css`
+    border: 0;
+    border-bottom: 5px solid #9adbf9;
+    margin-bottom: 20px;
+    background-color: #2999cd;
+  `;
+
   return (
     <div className="container">
       <div
@@ -31,21 +38,27 @@ const SignIn: React.FC = () => {
           height: 628px;
           margin: 50px auto;
           border-radius: 10px;
+          & input::placeholder {
+            color: #9adbf9;
+            text-transform: uppercase;
+          }
         `}
         className="box">
         <div className="field">
           <div className="control">
             <input
-              className="input is-primary"
+              css={inputStyle}
+              className="input"
               type="text"
-              placeholder="EMAIL"
+              placeholder="e-mail"
             />
           </div>
           <div className="control">
             <input
-              className="input is-primary"
+              css={inputStyle}
+              className="input"
               type="password"
-              placeholder="PASSWORD"
+              placeholder="password"
             />
           </div>
           <div className="control">
