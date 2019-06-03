@@ -35,7 +35,7 @@ const SignIn: React.FC = () => {
         css={css`
           background-color: #2999cd;
           width: 434px;
-          height: 628px;
+          height: 200px;
           margin: 50px auto;
           border-radius: 10px;
           & input::placeholder {
