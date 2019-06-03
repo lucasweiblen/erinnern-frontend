@@ -14,7 +14,16 @@ const btnStyle = css`
 const SignIn: React.FC = () => {
   return (
     <div className="container">
-      <div className="notification">Sign In</div>
+      <div
+        css={css`
+          background-color: #2999cd;
+          width: 434px;
+          height: 628px;
+          margin: 0 auto;
+        `}
+        className="box">
+        Sign In
+      </div>
     </div>
   );
 };
