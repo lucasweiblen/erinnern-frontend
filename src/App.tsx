@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React from 'react';
+import React, {createContext, useContext} from 'react';
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import {css, jsx} from '@emotion/core';
 
@@ -11,7 +11,13 @@ const btnStyle = css`
   color: #115677;
 `;
 
+const TesteContext = createContext('');
+
 const SignIn: React.FC = () => {
+  const bla = useContext(TesteContext); // getting value passed to context
+
+  console.log(bla);
+
   const btnStyle = css`
     background-color: #9adbf9;
     color: #195e7f;
@@ -134,14 +140,16 @@ const Home: React.FC = () => {
 
 const App: React.FC = () => {
   return (
-    <Router>
-      <div>
-        <Navbar />
-        <Route exact path="/" component={Home} />
-        <Route path="/signin" component={SignIn} />
-        <Route path="/signup" component={SignUp} />
-      </div>
-    </Router>
+    <TesteContext.Provider value={'bar'}>
+      <Router>
+        <div>
+          <Navbar />
+          <Route exact path="/" component={Home} />
+          <Route path="/signin" component={SignIn} />
+          <Route path="/signup" component={SignUp} />
+        </div>
+      </Router>
+    </TesteContext.Provider>
   );
 };
 
