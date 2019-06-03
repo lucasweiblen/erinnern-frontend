@@ -14,7 +14,15 @@ const btnStyle = css`
 const SignIn: React.FC = () => {
   return (
     <div className="container">
-      <div className="notification">foo</div>
+      <div className="notification">Sign In</div>
+    </div>
+  );
+};
+
+const SignUp: React.FC = () => {
+  return (
+    <div className="container">
+      <div className="notification">Sign Up</div>
     </div>
   );
 };
@@ -78,6 +86,7 @@ const App: React.FC = () => {
         <Navbar />
         <Route exact path="/" component={Home} />
         <Route path="/signin" component={SignIn} />
+        <Route path="/signup" component={SignUp} />
       </div>
     </Router>
   );
