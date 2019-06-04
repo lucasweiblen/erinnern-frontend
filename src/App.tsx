@@ -11,49 +11,54 @@ const btnStyle = css`
   color: #115677;
 `;
 
-const TesteContext = createContext('');
+interface Context {
+  id: number;
+  url: string;
+  tags: string[];
+}
+
+const AppContext = createContext<Context[]>([]);
 
 const SignIn: React.FC = () => {
-  const bla = useContext(TesteContext); // getting value passed to context
+  const context = useContext(AppContext); // getting value passed to context
+  console.log(context);
 
-  console.log(bla);
-
-  const btnStyle = css`
-    background-color: #9adbf9;
-    color: #195e7f;
-    width: 365px;
-    border: 1px solid #9adbf9;
-    border-radius: 5px;
-    margin-top: 10px;
-    margin-left: 15px;
-  `;
-
-  const inputStyle = css`
-    border: 0;
-    border-bottom: 5px solid #9adbf9;
-    margin-bottom: 20px;
-    background-color: #2999cd;
-  `;
+  const style = {
+    button: css`
+      background-color: #9adbf9;
+      color: #195e7f;
+      width: 365px;
+      border: 1px solid #9adbf9;
+      border-radius: 5px;
+      margin-top: 10px;
+      margin-left: 15px;
+    `,
+    input: css`
+      border: 0;
+      border-bottom: 5px solid #9adbf9;
+      margin-bottom: 20px;
+      background-color: #2999cd;
+    `,
+    box: css`
+      background-color: #2999cd;
+      width: 434px;
+      height: 200px;
+      margin: 50px auto;
+      border-radius: 10px;
+      & input::placeholder {
+        color: #9adbf9;
+        text-transform: uppercase;
+      }
+    `,
+  };
 
   return (
     <div className="container">
-      <div
-        css={css`
-          background-color: #2999cd;
-          width: 434px;
-          height: 200px;
-          margin: 50px auto;
-          border-radius: 10px;
-          & input::placeholder {
-            color: #9adbf9;
-            text-transform: uppercase;
-          }
-        `}
-        className="box">
+      <div css={style.box} className="box">
         <div className="field">
           <div className="control">
             <input
-              css={inputStyle}
+              css={style.input}
               className="input"
               type="text"
               placeholder="e-mail"
@@ -61,14 +66,14 @@ const SignIn: React.FC = () => {
           </div>
           <div className="control">
             <input
-              css={inputStyle}
+              css={style.input}
               className="input"
               type="password"
               placeholder="password"
             />
           </div>
           <div className="control">
-            <button css={btnStyle} className="button">
+            <button css={style.button} className="button">
               Sign in
             </button>
           </div>
@@ -87,21 +92,21 @@ const SignUp: React.FC = () => {
 };
 
 const Navbar: React.FC = () => {
+  const style = {
+    main: css`
+      background-color: ${bgColorNavbar};
+      min-heigth: unset;
+      min-height: 5rem;
+    `,
+    brand: css`
+      color: #4dc5fd;
+      font-size: 20px;
+    `,
+  };
   return (
-    <nav
-      className="navbar"
-      css={css`
-        background-color: ${bgColorNavbar};
-        min-heigth: unset;
-        min-height: 5rem;
-      `}>
+    <nav className="navbar" css={style.main}>
       <div className="navbar-brand">
-        <div
-          css={css`
-            color: #4dc5fd;
-            font-size: 20px;
-          `}
-          className="navbar-item">
+        <div css={style.brand} className="navbar-item">
           Bookmark app
         </div>
       </div>
@@ -127,10 +132,10 @@ const Home: React.FC = () => {
   const bgImg =
     'https://res.cloudinary.com/drtt3lmfe/image/upload/v1559231199/abstract-oil-painting-art-artistic-1546251_v8hnv5.jpg';
 
-  const mainCss = css`background-image: url("${bgImg}");`;
+  const mainStyle = css`background-image: url("${bgImg}");`;
 
   return (
-    <section css={mainCss} className="hero is-fullheight-with-navbar">
+    <section css={mainStyle} className="hero is-fullheight-with-navbar">
       <div className="hero-body">
         <div className="container" />
       </div>
@@ -139,8 +144,25 @@ const Home: React.FC = () => {
 };
 
 const App: React.FC = () => {
+  const urls = [
+    {
+      id: 1,
+      url: 'http://www.foobar.com',
+      tags: ['foo', 'bar'],
+    },
+    {
+      id: 2,
+      url: 'http://www.trendingrepos.xyz',
+      tags: ['uol', 'netflix'],
+    },
+    {
+      id: 3,
+      url: 'http://www.blablacar.com',
+      tags: ['react', 'hooks'],
+    },
+  ];
   return (
-    <TesteContext.Provider value={'bar'}>
+    <AppContext.Provider value={urls}>
       <Router>
         <div>
           <Navbar />
@@ -149,7 +171,7 @@ const App: React.FC = () => {
           <Route path="/signup" component={SignUp} />
         </div>
       </Router>
-    </TesteContext.Provider>
+    </AppContext.Provider>
   );
 };
 
