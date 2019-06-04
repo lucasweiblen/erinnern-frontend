@@ -88,8 +88,8 @@ const SignIn: React.FC = () => {
     return regExp.test(email);
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     console.log('handling submit');
     console.log(email);
     console.log(password);
