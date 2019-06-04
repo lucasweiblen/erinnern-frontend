@@ -78,32 +78,39 @@ const SignIn: React.FC = () => {
     `,
   };
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log('handling submit');
+  };
+
   return (
     <div className="container">
       <div css={style.box} className="box">
-        <div className="field">
-          <div className="control">
-            <input
-              css={style.input}
-              className="input"
-              type="text"
-              placeholder="e-mail"
-            />
+        <form onSubmit={handleSubmit}>
+          <div className="field">
+            <div className="control">
+              <input
+                css={style.input}
+                className="input"
+                type="text"
+                placeholder="e-mail"
+              />
+            </div>
+            <div className="control">
+              <input
+                css={style.input}
+                className="input"
+                type="password"
+                placeholder="password"
+              />
+            </div>
+            <div className="control">
+              <button css={style.button} className="button">
+                Sign in
+              </button>
+            </div>
           </div>
-          <div className="control">
-            <input
-              css={style.input}
-              className="input"
-              type="password"
-              placeholder="password"
-            />
-          </div>
-          <div className="control">
-            <button css={style.button} className="button">
-              Sign in
-            </button>
-          </div>
-        </div>
+        </form>
       </div>
     </div>
   );
