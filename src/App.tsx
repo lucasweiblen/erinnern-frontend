@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, {createContext, useContext, useState} from 'react';
+import React, {createContext, useContext, useReducer, useState} from 'react';
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import {css, jsx} from '@emotion/core';
 
@@ -44,6 +44,16 @@ const AppContext = createContext<AppState>({
   urls: [],
   loggedIn: false,
 });
+
+const signInReducer = (state: boolean, action: {type: string}) => {
+  console.log(state);
+  switch (action.type) {
+    case 'SIGN_IN':
+      return true;
+    default:
+      return false;
+  }
+};
 
 const SignIn: React.FC = () => {
   const context = useContext(AppContext); // getting value passed to context
@@ -144,7 +154,12 @@ const SignUp: React.FC = () => {
   );
 };
 
-const Navbar: React.FC = () => {
+interface IProps {
+  teste: any;
+}
+
+const Navbar: React.FC<IProps> = props => {
+  console.log(props.teste);
   const style = {
     main: css`
       background-color: ${bgColorNavbar};
@@ -201,11 +216,15 @@ const App: React.FC = () => {
     urls: urls,
     loggedIn: false,
   };
+
+  const [user, dispatchSignIn] = useReducer(signInReducer, false);
+  console.log(user);
+
   return (
     <AppContext.Provider value={initialState}>
       <Router>
         <div>
-          <Navbar />
+          <Navbar teste={dispatchSignIn} />
           <Route exact path="/" component={Home} />
           <Route path="/signin" component={SignIn} />
           <Route path="/signup" component={SignUp} />
