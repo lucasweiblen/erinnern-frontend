@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, {createContext, useContext, useReducer, useState} from 'react';
+import React, {createContext, useReducer, useState} from 'react';
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import {css, jsx} from '@emotion/core';
 
@@ -60,11 +60,11 @@ interface SignInProps {
 }
 
 const SignIn: React.FC<SignInProps> = props => {
-  const context = useContext(AppContext); // getting value passed to context
+  //const context = useContext(AppContext); // getting value passed to context
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  console.log(context);
+  //console.log(context);
 
   const style = {
     button: css`
@@ -217,7 +217,7 @@ const App: React.FC = () => {
   };
 
   const [user, dispatchSignIn] = useReducer(signInReducer, false);
-  console.log(user);
+  console.log(`USER LOGGED?: ${user}`);
 
   return (
     <AppContext.Provider value={initialState}>
