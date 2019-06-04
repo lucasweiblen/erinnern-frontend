@@ -55,13 +55,16 @@ const signInReducer = (state: boolean, action: {type: string}) => {
   }
 };
 
-const SignIn: React.FC<IProps> = props => {
+interface SignInProps {
+  onSignIn: any;
+}
+
+const SignIn: React.FC<SignInProps> = props => {
   const context = useContext(AppContext); // getting value passed to context
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   console.log(context);
-  console.log(props.teste);
 
   const style = {
     button: css`
@@ -104,8 +107,7 @@ const SignIn: React.FC<IProps> = props => {
 
     if (isValid({email: email})) {
       console.log('valid email');
-      // send action ('logged in')
-      props.teste({type: 'SIGN_IN'});
+      props.onSignIn({type: 'SIGN_IN'});
     } else {
       console.log('email not valid');
     }
@@ -156,13 +158,7 @@ const SignUp: React.FC = () => {
   );
 };
 
-interface IProps {
-  teste: any;
-}
-
-const Navbar: React.FC<IProps> = props => {
-  props.teste({type: 'SIGN_IN'});
-
+const Navbar: React.FC = () => {
   const style = {
     main: css`
       background-color: ${bgColorNavbar};
@@ -227,11 +223,11 @@ const App: React.FC = () => {
     <AppContext.Provider value={initialState}>
       <Router>
         <div>
-          <Navbar teste={dispatchSignIn} />
+          <Navbar />
           <Route exact path="/" component={Home} />
           <Route
             path="/signin"
-            render={props => <SignIn {...props} teste={dispatchSignIn} />}
+            render={props => <SignIn {...props} onSignIn={dispatchSignIn} />}
           />
           <Route path="/signup" component={SignUp} />
         </div>
