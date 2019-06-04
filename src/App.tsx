@@ -11,13 +11,39 @@ const btnStyle = css`
   color: #115677;
 `;
 
-interface Context {
+const urls = [
+  {
+    id: 1,
+    url: 'http://www.foobar.com',
+    tags: ['foo', 'bar'],
+  },
+  {
+    id: 2,
+    url: 'http://www.trendingrepos.xyz',
+    tags: ['uol', 'netflix'],
+  },
+  {
+    id: 3,
+    url: 'http://www.blablacar.com',
+    tags: ['react', 'hooks'],
+  },
+];
+
+interface Url {
   id: number;
   url: string;
   tags: string[];
 }
 
-const AppContext = createContext<Context[]>([]);
+interface AppState {
+  urls: Url[];
+  loggedIn: boolean;
+}
+
+const AppContext = createContext<AppState>({
+  urls: [],
+  loggedIn: false,
+});
 
 const SignIn: React.FC = () => {
   const context = useContext(AppContext); // getting value passed to context
@@ -144,25 +170,12 @@ const Home: React.FC = () => {
 };
 
 const App: React.FC = () => {
-  const urls = [
-    {
-      id: 1,
-      url: 'http://www.foobar.com',
-      tags: ['foo', 'bar'],
-    },
-    {
-      id: 2,
-      url: 'http://www.trendingrepos.xyz',
-      tags: ['uol', 'netflix'],
-    },
-    {
-      id: 3,
-      url: 'http://www.blablacar.com',
-      tags: ['react', 'hooks'],
-    },
-  ];
+  const initialState = {
+    urls: urls,
+    loggedIn: false,
+  };
   return (
-    <AppContext.Provider value={urls}>
+    <AppContext.Provider value={initialState}>
       <Router>
         <div>
           <Navbar />
