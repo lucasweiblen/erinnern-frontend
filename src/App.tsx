@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, {createContext, useContext} from 'react';
+import React, {createContext, useContext, useState} from 'react';
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import {css, jsx} from '@emotion/core';
 
@@ -47,6 +47,9 @@ const AppContext = createContext<AppState>({
 
 const SignIn: React.FC = () => {
   const context = useContext(AppContext); // getting value passed to context
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   console.log(context);
 
   const style = {
@@ -81,6 +84,8 @@ const SignIn: React.FC = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log('handling submit');
+    console.log(email);
+    console.log(password);
   };
 
   return (
@@ -94,6 +99,8 @@ const SignIn: React.FC = () => {
                 className="input"
                 type="text"
                 placeholder="e-mail"
+                onChange={event => setEmail(event.target.value)}
+                value={email}
               />
             </div>
             <div className="control">
@@ -102,6 +109,8 @@ const SignIn: React.FC = () => {
                 className="input"
                 type="password"
                 placeholder="password"
+                value={password}
+                onChange={event => setPassword(event.target.value)}
               />
             </div>
             <div className="control">
