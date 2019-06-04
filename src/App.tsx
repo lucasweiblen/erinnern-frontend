@@ -90,10 +90,13 @@ const SignIn: React.FC = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log('handling submit');
-    console.log(email);
-    console.log(password);
-    console.log(isValid({email: email}));
+
+    if (isValid({email: email})) {
+      console.log('valid email');
+      // send action ('logged in')
+    } else {
+      console.log('email not valid');
+    }
   };
 
   return (
