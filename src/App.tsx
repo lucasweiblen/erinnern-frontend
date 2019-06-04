@@ -81,11 +81,19 @@ const SignIn: React.FC = () => {
     `,
   };
 
+  type Email = {email: string};
+
+  const isValid = ({email}: Email) => {
+    const regExp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return regExp.test(email);
+  };
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log('handling submit');
     console.log(email);
     console.log(password);
+    console.log(isValid({email: email}));
   };
 
   return (
