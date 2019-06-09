@@ -1,10 +1,11 @@
 /** @jsx jsx */
 import React, {createContext, useReducer} from 'react';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
-import {css, jsx} from '@emotion/core';
+import {jsx} from '@emotion/core';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 import Navbar from './components/Navbar';
+import Home from './components/Home';
 
 const urls = [
   {
@@ -48,21 +49,6 @@ const signInReducer = (state: boolean, action: {type: string}) => {
     default:
       return state;
   }
-};
-
-const Home: React.FC = () => {
-  const bgImg =
-    'https://res.cloudinary.com/drtt3lmfe/image/upload/v1559231199/abstract-oil-painting-art-artistic-1546251_v8hnv5.jpg';
-
-  const mainStyle = css`background-image: url("${bgImg}");`;
-
-  return (
-    <section css={mainStyle} className="hero is-fullheight-with-navbar">
-      <div className="hero-body">
-        <div className="container" />
-      </div>
-    </section>
-  );
 };
 
 const App: React.FC = () => {
