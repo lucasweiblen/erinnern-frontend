@@ -3,14 +3,6 @@ import React, {createContext, useReducer, useState} from 'react';
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import {css, jsx} from '@emotion/core';
 
-const bgColorNavbar = '#115677';
-const bgColorBtn = '#9ADBF9';
-const btnStyle = css`
-  background-color: ${bgColorBtn};
-  border-radius: 12px;
-  color: #115677;
-`;
-
 const urls = [
   {
     id: 1,
@@ -161,13 +153,18 @@ const SignUp: React.FC = () => {
 const Navbar: React.FC = () => {
   const style = {
     main: css`
-      background-color: ${bgColorNavbar};
+      background-color: #115677;
       min-heigth: unset;
       min-height: 5rem;
     `,
     brand: css`
       color: #4dc5fd;
       font-size: 20px;
+    `,
+    button: css`
+      background-color: #9adbf9;
+      border-radius: 12px;
+      color: #115677;
     `,
   };
   return (
@@ -181,10 +178,10 @@ const Navbar: React.FC = () => {
         <div className="navbar-end">
           <div className="navbar-item">
             <div className="buttons">
-              <Link css={btnStyle} className="button" to="/signin">
+              <Link css={style.button} className="button" to="/signin">
                 Sign in
               </Link>
-              <Link css={btnStyle} className="button" to="/signup">
+              <Link css={style.button} className="button" to="/signup">
                 Sign up
               </Link>
             </div>
