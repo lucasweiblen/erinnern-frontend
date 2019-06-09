@@ -3,6 +3,7 @@ import React, {createContext, useReducer} from 'react';
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import {css, jsx} from '@emotion/core';
 import SignIn from './components/SignIn';
+import SignUp from './components/SignUp';
 
 const urls = [
   {
@@ -46,14 +47,6 @@ const signInReducer = (state: boolean, action: {type: string}) => {
     default:
       return state;
   }
-};
-
-const SignUp: React.FC = () => {
-  return (
-    <div className="container">
-      <div className="notification">Sign Up</div>
-    </div>
-  );
 };
 
 const Navbar: React.FC = () => {
