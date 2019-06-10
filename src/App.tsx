@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, {createContext, useReducer, useEffect} from 'react';
+import React, {useReducer, useEffect} from 'react';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import {jsx} from '@emotion/core';
 import SignIn from './components/SignIn';
@@ -8,6 +8,7 @@ import Navbar from './components/Navbar';
 import Home from './components/Home';
 import urls from './urls';
 import {SIGN_IN, LOADING} from './types';
+import {AppContext} from './context/appContext';
 
 interface Url {
   id: number;
@@ -35,19 +36,6 @@ interface Action {
   payload?: Payload;
 }
 
-const initialState = {
-  urls: urls,
-  loggedIn: false,
-  loading: false,
-  token: '',
-  user: {},
-  fetchUrl: () => {
-    console.log('bla');
-  },
-};
-
-const AppContext = createContext<AppState>(initialState);
-
 const appReducer = (state: AppState, action: Action) => {
   switch (action.type) {
     case SIGN_IN:
@@ -63,7 +51,6 @@ const Dashboard: React.FC = () => {
   const {fetchUrl} = React.useContext(AppContext);
 
   useEffect(() => {
-    console.log('call api and get user urls');
     fetchUrl();
   }, []);
 
@@ -71,19 +58,39 @@ const Dashboard: React.FC = () => {
 };
 
 const App: React.FC = () => {
+  const initialState = {
+    urls: urls,
+    loggedIn: false,
+    loading: false,
+    token: '',
+    user: {},
+    fetchUrl: () => {
+      console.log('bla');
+    },
+  };
   const [state, dispatch] = useReducer(appReducer, initialState);
 
+  const fetchBookmars = () => {
+    dispatch({type: 'LOADING'});
+  };
+
+  const signIn = () => {
+    dispatch({type: 'SIGN_IN'});
+  };
+
   return (
-    <AppContext.Provider value={state}>
+    <AppContext.Provider
+      value={{
+        fetchUrl: fetchBookmars,
+        signIn: signIn,
+        urls: state.urls,
+      }}>
       <Router>
         <div>
           <Navbar />
           <Route exact path="/" component={Home} />
           <Route path="/dashboard" component={Dashboard} />
-          <Route
-            path="/signin"
-            render={props => <SignIn {...props} onSignIn={dispatch} />}
-          />
+          <Route path="/signin" component={SignIn} />
           <Route path="/signup" component={SignUp} />
         </div>
       </Router>

@@ -1,17 +1,13 @@
 /** @jsx jsx */
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {css, jsx} from '@emotion/core';
+import {AppContext} from '../context/appContext';
 
-interface SignInProps {
-  onSignIn: any;
-}
+const SignIn: React.FC = () => {
+  const {signIn} = useContext(AppContext);
 
-const SignIn: React.FC<SignInProps> = props => {
-  //const context = useContext(AppContext); // getting value passed to context
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  //console.log(context);
 
   const style = {
     button: css`
@@ -54,7 +50,7 @@ const SignIn: React.FC<SignInProps> = props => {
 
     if (isValid({email: email})) {
       console.log('valid email');
-      props.onSignIn({type: 'SIGN_IN'});
+      signIn();
     } else {
       console.log('email not valid');
     }
