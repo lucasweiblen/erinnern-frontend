@@ -9,6 +9,7 @@ import Home from './components/Home';
 import urls from './urls';
 
 const SIGN_IN = 'SIGN_IN';
+const LOADING = 'LOADING';
 
 interface Url {
   id: number;
@@ -28,6 +29,13 @@ interface AppState {
   user: User;
 }
 
+type Payload = {};
+
+interface Action {
+  type: string;
+  payload?: Payload;
+}
+
 const initialState = {
   urls: urls,
   loggedIn: false,
@@ -38,11 +46,12 @@ const initialState = {
 
 const AppContext = createContext<AppState>(initialState);
 
-const appReducer = (state: AppState, action: {type: string}) => {
+const appReducer = (state: AppState, action: Action) => {
   switch (action.type) {
     case SIGN_IN:
-      console.log('signing in teste');
       return {...state, loggedIn: true};
+    case LOADING:
+      return {...state, loading: false};
     default:
       return state;
   }
