@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, {createContext, useReducer} from 'react';
+import React, {createContext, useReducer, useEffect} from 'react';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import {jsx} from '@emotion/core';
 import SignIn from './components/SignIn';
@@ -7,9 +7,7 @@ import SignUp from './components/SignUp';
 import Navbar from './components/Navbar';
 import Home from './components/Home';
 import urls from './urls';
-
-const SIGN_IN = 'SIGN_IN';
-const LOADING = 'LOADING';
+import {SIGN_IN, LOADING} from './types';
 
 interface Url {
   id: number;
@@ -27,6 +25,7 @@ interface AppState {
   loading: boolean;
   token: Token;
   user: User;
+  fetchUrl: any;
 }
 
 type Payload = {};
@@ -42,6 +41,9 @@ const initialState = {
   loading: false,
   token: '',
   user: {},
+  fetchUrl: () => {
+    console.log('bla');
+  },
 };
 
 const AppContext = createContext<AppState>(initialState);
@@ -51,10 +53,21 @@ const appReducer = (state: AppState, action: Action) => {
     case SIGN_IN:
       return {...state, loggedIn: true};
     case LOADING:
-      return {...state, loading: false};
+      return {...state, loading: true};
     default:
       return state;
   }
+};
+
+const Dashboard: React.FC = () => {
+  const {fetchUrl} = React.useContext(AppContext);
+
+  useEffect(() => {
+    console.log('call api and get user urls');
+    fetchUrl();
+  }, []);
+
+  return <React.Fragment>Dashboard</React.Fragment>;
 };
 
 const App: React.FC = () => {
@@ -66,6 +79,7 @@ const App: React.FC = () => {
         <div>
           <Navbar />
           <Route exact path="/" component={Home} />
+          <Route path="/dashboard" component={Dashboard} />
           <Route
             path="/signin"
             render={props => <SignIn {...props} onSignIn={dispatch} />}
