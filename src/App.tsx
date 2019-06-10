@@ -8,6 +8,8 @@ import Navbar from './components/Navbar';
 import Home from './components/Home';
 import urls from './urls';
 
+const SIGN_IN = 'SIGN_IN';
+
 interface Url {
   id: number;
   url: string;
@@ -36,29 +38,28 @@ const initialState = {
 
 const AppContext = createContext<AppState>(initialState);
 
-const signInReducer = (state: boolean, action: {type: string}) => {
+const appReducer = (state: AppState, action: {type: string}) => {
   switch (action.type) {
-    case 'SIGN_IN':
+    case SIGN_IN:
       console.log('signing in teste');
-      return true;
+      return {...state, loggedIn: true};
     default:
       return state;
   }
 };
 
 const App: React.FC = () => {
-  const [user, dispatchSignIn] = useReducer(signInReducer, false);
-  console.log(`USER LOGGED?: ${user}`);
+  const [state, dispatch] = useReducer(appReducer, initialState);
 
   return (
-    <AppContext.Provider value={initialState}>
+    <AppContext.Provider value={state}>
       <Router>
         <div>
           <Navbar />
           <Route exact path="/" component={Home} />
           <Route
             path="/signin"
-            render={props => <SignIn {...props} onSignIn={dispatchSignIn} />}
+            render={props => <SignIn {...props} onSignIn={dispatch} />}
           />
           <Route path="/signup" component={SignUp} />
         </div>
