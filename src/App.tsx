@@ -14,20 +14,32 @@ interface Url {
   tags: string[];
 }
 
+type Token = string;
+
+type User = {username?: string};
+
 interface AppState {
   urls: Url[];
   loggedIn: boolean;
+  loading: boolean;
+  token: Token;
+  user: User;
 }
 
-const AppContext = createContext<AppState>({
-  urls: [],
+const initialState = {
+  urls: urls,
   loggedIn: false,
-});
+  loading: false,
+  token: '',
+  user: {},
+};
+
+const AppContext = createContext<AppState>(initialState);
 
 const signInReducer = (state: boolean, action: {type: string}) => {
   switch (action.type) {
     case 'SIGN_IN':
-      console.log('signing in');
+      console.log('signing in teste');
       return true;
     default:
       return state;
@@ -35,11 +47,6 @@ const signInReducer = (state: boolean, action: {type: string}) => {
 };
 
 const App: React.FC = () => {
-  const initialState = {
-    urls: urls,
-    loggedIn: false,
-  };
-
   const [user, dispatchSignIn] = useReducer(signInReducer, false);
   console.log(`USER LOGGED?: ${user}`);
 
